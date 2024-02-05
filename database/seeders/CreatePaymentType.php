@@ -26,7 +26,7 @@ class CreatePaymentType extends Seeder
             ],
         ];
 
-        foreach ($data as $key => $value) {
+        foreach ($data as $value) {
             Payment_Type::create([
                 'name'  => $value['name'],
             ]);

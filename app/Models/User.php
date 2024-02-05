@@ -3,10 +3,10 @@
 namespace App\Models;
 
 use DB;
+
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 class User extends Authenticatable
 {
@@ -22,7 +22,6 @@ class User extends Authenticatable
     ];
 
     protected $hidden = [
-        'id',
         'password',
     ];
 
@@ -89,5 +88,21 @@ class User extends Authenticatable
                 ->join('tbl_cryptocurrencies', 'tbl_wallet.crypto_id', '=', 'tbl_cryptocurrencies.id')
                 ->where('tbl_users.username', $username)
                 ->get();
+    }
+
+    public function getUserAndWalletByUsername($username, $cryptoId)
+    {
+        return  User::select(
+                    'tbl_users.id',
+                    'tbl_wallet.id AS wallet_id',
+                    'tbl_wallet.address',
+                    'tbl_wallet.balance',
+                )
+                ->join('tbl_wallet', 'tbl_users.id', '=', 'tbl_wallet.user_id')
+                ->where([
+                    'tbl_users.username'    => $username,
+                    'tbl_wallet.crypto_id'  => $cryptoId
+                ])
+                ->first();
     }
 }

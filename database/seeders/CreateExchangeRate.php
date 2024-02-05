@@ -32,7 +32,7 @@ class CreateExchangeRate extends Seeder
             ],
         ];
 
-        foreach ($data as $key => $value) {
+        foreach ($data as $value) {
             Exchange_Rate::create([
                 'from_currency_id'  => $value['from_currency_id'],
                 'to_currency_id'    => $value['to_currency_id'],

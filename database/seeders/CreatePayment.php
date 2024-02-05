@@ -16,52 +16,34 @@ class CreatePayment extends Seeder
     {
         $data = [
             [
-                'user_id'           => '',
-                'order_id'          => '',
-                'type_id'           => '',
-                'payment_type_id'   => '',
-                'paid_amount'       => '',
-                'order_amount'      => '',
-                'status_id'         => '',
+                'user_id'           => '3',
+                'order_id'          => '5',
+                'type_id'           => '1',
+                'payment_type_id'   => '2',
+                'paid_amount'       => '1.21500',
+                'order_amount'      => '15',
+                'status_id'         => '3',
             ],
             [
-                'user_id'           => '',
-                'order_id'          => '',
-                'type_id'           => '',
-                'payment_type_id'   => '',
-                'paid_amount'       => '',
-                'order_amount'      => '',
-                'status_id'         => '',
-            ],
-            [
-                'user_id'           => '',
-                'order_id'          => '',
-                'type_id'           => '',
-                'payment_type_id'   => '',
-                'paid_amount'       => '',
-                'order_amount'      => '',
-                'status_id'         => '',
-            ],
-            [
-                'user_id'           => '',
-                'order_id'          => '',
-                'type_id'           => '',
-                'payment_type_id'   => '',
-                'paid_amount'       => '',
-                'order_amount'      => '',
-                'status_id'         => '',
+                'user_id'           => '1',
+                'order_id'          => '3',
+                'type_id'           => '1',
+                'payment_type_id'   => '3',
+                'paid_amount'       => '2157',
+                'order_amount'      => '0.05',
+                'status_id'         => '3',
             ],
         ];
 
-        foreach ($data as $key => $value) {
+        foreach ($data as $value) {
             Payment::create([
-                'user_id'           => $value[''],
-                'order_id'          => $value[''],
-                'type_id'           => $value[''],
-                'payment_type_id'   => $value[''],
-                'paid_amount'       => $value[''],
-                'order_amount'      => $value[''],
-                'status_id'         => $value[''],
+                'user_id'           => $value['user_id'],
+                'order_id'          => $value['order_id'],
+                'type_id'           => $value['type_id'],
+                'payment_type_id'   => $value['payment_type_id'],
+                'paid_amount'       => $value['paid_amount'],
+                'order_amount'      => $value['order_amount'],
+                'status_id'         => $value['status_id'],
             ]);
         }
     }

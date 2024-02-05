@@ -3,12 +3,16 @@
 namespace App\Http\Controllers\Api;
 
 use DB;
+
 use App\Models\User;
 use App\Models\Wallet;
+
 use App\Domain\UserDomain;
-use Illuminate\Http\Request;
+use App\Domain\WalletDomain;
 use App\Libraries\JsonResponse;
 use App\Http\Controllers\Controller;
+
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 class UsersController extends Controller
@@ -34,7 +38,8 @@ class UsersController extends Controller
             }
             DB::beginTransaction();
             $resultUserDetail = User::createUser($request->all());
-            $resultWalletDetail = Wallet::createDefaultWalletNewUser((object) $resultUserDetail);
+            $setFormatWalletDefaults = WalletDomain::setFormatWalletDefault((object) $resultUserDetail);
+            Wallet::createDefaultWalletNewUser($setFormatWalletDefaults);
 
             DB::commit();
             return JsonResponse::messageResponse("Create New User Success", 200);

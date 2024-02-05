@@ -16,6 +16,7 @@ class Order extends Model
         'limit_amount',
         'min_amount',
         'balance_amount',
+        'price',
     ];
 
     protected $hidden = [
@@ -77,5 +78,45 @@ class Order extends Model
                 ->where('tbl_users.username', $username)
                 ->orderBy('tbl_order.crypto_id', 'DESC')
                 ->get();
+    }
+
+    public function createOrder($request, $userId, $cryptoId, $typeId)
+    {
+        return  Order::create([
+                    'user_id'           => $userId,
+                    'crypto_id'         => $cryptoId,
+                    'type_id'           => $typeId,
+                    'status_id'         => 1,
+                    'limit_amount'      => $request['limitAmount'],
+                    'min_amount'        => $request['minAmount'],
+                    'balance_amount'    => $request['limitAmount'],
+                    'price'             => $request['ratePrice'],
+                ]);
+    }
+
+    public function getOrderDetailByOrderId($orderId, $orderAmount)
+    {
+        return  Order::select(
+            'tbl_order.user_id',
+            'tbl_wallet.id AS wallet_id',
+            'tbl_order.crypto_id'
+        )
+        ->join('tbl_wallet', [
+            'tbl_order.user_id'     => 'tbl_wallet.user_id',
+            'tbl_wallet.crypto_id'  => 'tbl_order.crypto_id'
+        ])
+        ->where([
+            'tbl_order.id'          => $orderId,
+        ])
+        ->where('tbl_order.balance_amount', '>', $orderAmount)
+        ->first();
+    }
+
+    public function confirmAcceptTransferCrypto($orderId, $balanceAmount)
+    {
+        Order::where('id', $orderId)
+            ->update([
+                'balance_amount' => $balanceAmount
+            ]);
     }
 }

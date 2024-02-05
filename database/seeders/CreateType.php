@@ -29,7 +29,7 @@ class CreateType extends Seeder
             ],
         ];
 
-        foreach ($data as $key => $value) {
+        foreach ($data as $value) {
             Type::create([
                 'name'  => $value['name'],
             ]);

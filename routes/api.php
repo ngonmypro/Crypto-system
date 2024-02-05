@@ -29,13 +29,15 @@ Route::group(['prefix' => 'trade'], function () {
     Route::get('get-order-by-crypto/{crypto}', 'Api\OrderController@getOrderListByCrypto');
     Route::get('get-order-by-user/{username}', 'Api\OrderController@getOrderListByUser');
     // create
-    // Route::post('', '');
+    Route::post('create-order', 'Api\OrderController@createOrder');
 });
 
 Route::group(['prefix' => 'payment'], function () {
-
+    Route::post('create-paid-amount', 'Api\PaymentController@createPaidAmount');
+    Route::patch('confirm-paid-amount', 'Api\PaymentController@confirmPaidAmount');
 });
 
 Route::group(['prefix' => 'transfer'], function () {
-
+    Route::post('create-transfer', 'Api\TransactionController@createTransferCrypto');
+    Route::patch('confirm-transfer', 'Api\TransactionController@confirmTransferCrypto');
 });

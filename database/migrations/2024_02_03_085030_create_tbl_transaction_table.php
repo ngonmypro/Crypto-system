@@ -17,7 +17,7 @@ class CreateTblTransactionTable extends Migration
             $table->id();
             $table->integer('sender_wallet_id')->index();
             $table->integer('receiver_wallet_id')->index()->nullable();
-            $table->string('address')->nullable();
+            $table->string('address');
             $table->float('amount', 20, 10);
             $table->integer('crypto_id')->index();
             $table->integer('type_id')->index()->nullable();

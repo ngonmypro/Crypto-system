@@ -2,7 +2,8 @@
 
 namespace App\Models;
 
-use DB;
+use App\Domain\WalletDomain;
+use App\Enums\Person;
 use Illuminate\Database\Eloquent\Model;
 
 class Wallet extends Model
@@ -25,22 +26,36 @@ class Wallet extends Model
         return $this->hasMany(Transaction::class);
     }
 
-    public function createDefaultWalletNewUser($userDetail)
+    public function createDefaultWalletNewUser($defaultWallet)
     {
-        $resultCryptos = Cryptocurrencies::getCryptoList();
-
-        $defaultWallet = [];
-        foreach ($resultCryptos as $rowCrypto) {
-            array_push($defaultWallet, [
-                'user_id'       => $userDetail->lastId,
-                'crypto_id'     => $rowCrypto->id,
-                'balance'       => 0,
-                'address'       => $userDetail->username.'|'.$rowCrypto->symbol,
-                'created_at'    => NOW(),
-                'updated_at'    => NOW(),
-            ]);
-        }
-
         Wallet::insert($defaultWallet);
+    }
+
+    public function checkBalanceSellCryptoByUser($cryptoId, $userId)
+    {
+        return  Wallet::select(
+                    'balance',
+                    'id'
+                )
+                ->where([
+                    'user_id'       => $userId,
+                    'crypto_id'     => $cryptoId
+                    ])
+                ->first();
+    }
+
+    public function confirmTransferCrypto($userId, $walletId, $cryptoId, $cryptoAmount, $personTransfer)
+    {
+        $resultBalance = self::checkBalanceSellCryptoByUser($cryptoId, $userId);
+        $calBalance = WalletDomain::calWalletBalance($resultBalance->balance, $cryptoAmount, $personTransfer);
+
+        Wallet::where([
+            'user_id'   => $userId,
+            'crypto_id' => $cryptoId,
+            'id'        => $walletId ?? $walletId,
+        ])
+        ->update([
+            'balance'   => $calBalance,
+        ]);
     }
 }

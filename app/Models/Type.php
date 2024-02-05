@@ -30,4 +30,13 @@ class Type extends Model
     {
         return $this->hasMany(Transaction::class);
     }
+
+    public function getTypeByOrderType($type)
+    {
+        return  Type::select(
+                    'id'
+                )
+                ->where('name', $type)
+                ->first();
+    }
 }

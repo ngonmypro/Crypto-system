@@ -15,19 +15,18 @@ class DatabaseSeeder extends Seeder
     {
 
         $this->call([
-            // CreateUser::class,
-            // CreateType::class,
-            // CreateStatus::class,
-            // CreateCurrency::class,
-            // CreateCryptocurrencies::class,
-            // CreatePaymentType::class,
-            // CreateExchangeRate::class,
-            // CreateWallet::class,
-            // CreateUserPaymentType::class,
-            // CreateOrder::class,
-
-            // CreateTransaction::class,
-            // CreatePayment::class,
+            CreateUser::class,
+            CreateType::class,
+            CreateStatus::class,
+            CreateCurrency::class,
+            CreateCryptocurrencies::class,
+            CreatePaymentType::class,
+            CreateExchangeRate::class,
+            CreateWallet::class,
+            CreateUserPaymentType::class,
+            CreateOrder::class,
+            CreatePayment::class,
+            CreateTransaction::class,
         ]);
     }
 }

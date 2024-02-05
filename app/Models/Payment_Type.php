@@ -25,4 +25,17 @@ class Payment_Type extends Model
     {
         return $this->hasMany(User_Payment_Type::class);
     }
+
+    public function getPaymentTypeByOwnerOrder($paymentMethod, $userId)
+    {
+        return  Payment_Type::select(
+                    'tbl_payment_type.id'
+                )
+                ->join('tbl_user_payment_type', 'tbl_payment_type.id', '=', 'tbl_user_payment_type.payment_type_id')
+                ->where([
+                    'tbl_user_payment_type.user_id' => $userId,
+                    'tbl_payment_type.name' => $paymentMethod
+                ])
+                ->first();
+    }
 }

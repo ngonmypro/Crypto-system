@@ -1,0 +1,288 @@
+{
+	"info": {
+		"_postman_id": "f9712c1a-11f3-40d5-88ba-f555a2cd4927",
+		"name": "Cryptocurrencies System API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29188227",
+		"_collection_link": "https://foodstory.postman.co/workspace/%5BFS%5D-WONGNAI-API~f36f9d1d-b210-4803-82e4-1207d5ada83a/collection/29188227-f9712c1a-11f3-40d5-88ba-f555a2cd4927?action=share&source=collection_link&creator=29188227"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Get User",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}users/get-user-list",
+							"host": [
+								"{{url}}users"
+							],
+							"path": [
+								"get-user-list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Wallet By User",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}users/get-wallet-by-user/:username",
+							"host": [
+								"{{url}}users"
+							],
+							"path": [
+								"get-wallet-by-user",
+								":username"
+							],
+							"variable": [
+								{
+									"key": "username",
+									"value": "nguan_admin"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"nguan_buyer_api\",\n    \"email\": \"api@gmail.com\",\n    \"password\": \"123456\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}users/create-user",
+							"host": [
+								"{{url}}users"
+							],
+							"path": [
+								"create-user"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Trade",
+			"item": [
+				{
+					"name": "Get Order List By Crypto",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}trade/get-order-by-crypto/:crypto?currency=THB",
+							"host": [
+								"{{url}}trade"
+							],
+							"path": [
+								"get-order-by-crypto",
+								":crypto"
+							],
+							"query": [
+								{
+									"key": "currency",
+									"value": "THB"
+								}
+							],
+							"variable": [
+								{
+									"key": "crypto",
+									"value": "ETH"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Order List By User",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}trade/get-order-by-user/:username?currency=THB",
+							"host": [
+								"{{url}}trade"
+							],
+							"path": [
+								"get-order-by-user",
+								":username"
+							],
+							"query": [
+								{
+									"key": "currency",
+									"value": "THB"
+								}
+							],
+							"variable": [
+								{
+									"key": "username",
+									"value": "nguan_seller"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Order",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"nguan_seller\",\n    \"crypto\": \"DOGE\",\n    \"type\": \"sell\",\n    \"limitAmount\": \"200.1\",\n    \"minAmount\": \"15\",\n    \"ratePrice\": \"0.081\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}trade/create-order",
+							"host": [
+								"{{url}}trade"
+							],
+							"path": [
+								"create-order"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Transfer",
+			"item": [
+				{
+					"name": "Confirm Transfer Crypto",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"address\": \"nguan_admin|BTC\",\n    \"transaction\": 3\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}transfer/confirm-transfer",
+							"host": [
+								"{{url}}transfer"
+							],
+							"path": [
+								"confirm-transfer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Transfer Withdraw/Deposit",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"nguan_buyer\",\n    \"crypto\": \"btc\",\n    \"transferAmount\": \"0.2\",\n    \"address\": \"Addres_out_system|BTC\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}transfer/create-transfer",
+							"host": [
+								"{{url}}transfer"
+							],
+							"path": [
+								"create-transfer"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Payment",
+			"item": [
+				{
+					"name": "Create Paid Amount",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"nguan_buyer\",\n    \"order\": 3,\n    \"type\": \"BUY\",\n    \"paymentMethod\": \"THAI QR\",\n    \"paidAmount\": \"2157\",\n    \"orderAmount\": \"0.05\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}payment/create-paid-amount",
+							"host": [
+								"{{url}}payment"
+							],
+							"path": [
+								"create-paid-amount"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Confirm Paid Amount",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"nguan_seller\",\n    \"payment\": 9\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}payment/confirm-paid-amount",
+							"host": [
+								"{{url}}payment"
+							],
+							"path": [
+								"confirm-paid-amount"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

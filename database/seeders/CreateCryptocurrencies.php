@@ -42,7 +42,7 @@ class CreateCryptocurrencies extends Seeder
             ],
         ];
 
-        foreach ($data as $key => $value) {
+        foreach ($data as $value) {
             Cryptocurrencies::create([
                 'name'          => $value['name'],
                 'symbol'        => $value['symbol'],

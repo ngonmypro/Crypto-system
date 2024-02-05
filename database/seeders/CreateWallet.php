@@ -107,7 +107,7 @@ class CreateWallet extends Seeder
             ],
         ];
 
-        foreach ($data as $key => $value) {
+        foreach ($data as $value) {
             Wallet::create([
                 'user_id'   => $value['user_id'],
                 'crypto_id' => $value['crypto_id'],

@@ -33,7 +33,7 @@ class CreateCurrency extends Seeder
             ],
         ];
 
-        foreach ($data as $key => $value) {
+        foreach ($data as $value) {
             Currency::create([
                 'name'  => $value['name'],
                 'code'  => $value['code'],

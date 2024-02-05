@@ -37,4 +37,13 @@ class Cryptocurrencies extends Model
     {
         return Cryptocurrencies::select('id', 'symbol')->get();
     }
+
+    public function getCryptoByOrderCrypto($crypto)
+    {
+        return  Cryptocurrencies::select(
+                    'id'
+                )
+                ->where('symbol', $crypto)
+                ->first();
+    }
 }

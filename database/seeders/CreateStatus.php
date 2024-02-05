@@ -32,7 +32,7 @@ class CreateStatus extends Seeder
             ],
         ];
 
-        foreach ($data as $key => $value) {
+        foreach ($data as $value) {
             Status::create([
                 'name'  => $value['name'],
             ]);

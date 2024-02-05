@@ -36,7 +36,7 @@ class CreateUser extends Seeder
             ],
         ];
 
-        foreach ($data as $key => $value) {
+        foreach ($data as $value) {
             User::create([
                 'username'  => $value['username'],
                 'email'     => $value['email'],
