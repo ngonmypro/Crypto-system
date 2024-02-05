@@ -2,27 +2,38 @@
 
 namespace App\Http\Controllers\Api;
 
-use DB;
 use App\Models\Order;
-// use App\Models\Wallet;
-// use App\Domain\UserDomain;
+// use DB;
+use App\Domain\OrderDomain;
 use Illuminate\Http\Request;
+use App\Models\Exchange_Rate;
+use App\Domain\CurrencyDomain;
 use App\Libraries\JsonResponse;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Validator;
+// use Illuminate\Support\Facades\Validator;
 
 class OrderController extends Controller
 {
-    public function getOrderListByCrypto($crypto)
+    public function getOrderListByCrypto(Request $request, $crypto)
     {
-       $results = Order::getOrderListByCrypto($crypto);
+        $currency = CurrencyDomain::checkCurrency($request->currency);
+        $resultExchange = Exchange_Rate::getRateExchange($currency);
 
-       return JsonResponse::messageResponse("Get Order Completed", 200, $results);
+        $resultsOrder = Order::getOrderListByCrypto($crypto);
+        $results = OrderDomain::setFormatOrderByCrypto($crypto, $resultsOrder, $resultExchange);
+
+        return JsonResponse::messageResponse("Get Order List Completed", 200, $results);
     }
 
-    public function getOrderListByUser($username)
+    public function getOrderListByUser(Request $request, $username)
     {
-        # code...
+        $currency = CurrencyDomain::checkCurrency($request->currency);
+        $resultExchange = Exchange_Rate::getRateExchange($currency);
+
+        $resultsOrder = Order::getOrderListByUser($username);
+        $results = OrderDomain::setFormatOrderByUser($username, $resultsOrder, $resultExchange);
+
+        return JsonResponse::messageResponse("Get Order By User Completed", 200, $results);
     }
 
     // public function createUser(Request $request)

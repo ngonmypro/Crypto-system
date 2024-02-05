@@ -35,14 +35,15 @@ class Order extends Model
     public function getOrderListByCrypto($crypto)
     {
         return  Order::select(
-                    'tbl_cryptocurrencies.symbol',
                     'tbl_users.username',
-                    'tbl_payment_type.name',
-                    'tbl_type.name',
-                    'tbl_status.name',
+                    'tbl_payment_type.name AS payment',
+                    'tbl_type.name AS type',
+                    'tbl_status.name AS status',
                     'tbl_order.limit_amount',
                     'tbl_order.min_amount',
                     'tbl_order.balance_amount',
+                    'tbl_order.price',
+                    'tbl_order.id AS order_id',
                 )
                 ->join('tbl_cryptocurrencies', 'tbl_order.crypto_id', '=', 'tbl_cryptocurrencies.id')
                 ->join('tbl_users', 'tbl_order.user_id', '=', 'tbl_users.id')
@@ -50,19 +51,31 @@ class Order extends Model
                 ->join('tbl_payment_type', 'tbl_user_payment_type.payment_type_id', '=', 'tbl_payment_type.id')
                 ->join('tbl_type', 'tbl_order.type_id', '=', 'tbl_type.id')
                 ->join('tbl_status', 'tbl_order.status_id', '=', 'tbl_status.id')
+                ->where('tbl_cryptocurrencies.symbol', $crypto)
                 ->get();
+    }
 
-        // User::select(
-        //     'tbl_users.username',
-        //     'tbl_users.email',
-        //     self::convertRole(),
-        //     'tbl_cryptocurrencies.symbol',
-        //     'tbl_wallet.balance',
-        //     'tbl_wallet.address',
-        // )
-        // ->join('tbl_wallet', 'tbl_users.id', '=', 'tbl_wallet.user_id')
-        // ->join('tbl_cryptocurrencies', 'tbl_wallet.crypto_id', '=', 'tbl_cryptocurrencies.id')
-        // ->where('tbl_users.username', $username)
-        // ->get();
+    public function getOrderListByUser($username)
+    {
+        return  Order::select(
+                    'tbl_cryptocurrencies.symbol',
+                    'tbl_payment_type.name AS payment',
+                    'tbl_type.name AS type',
+                    'tbl_status.name AS status',
+                    'tbl_order.limit_amount',
+                    'tbl_order.min_amount',
+                    'tbl_order.balance_amount',
+                    'tbl_order.price',
+                    'tbl_order.id AS order_id',
+                )
+                ->join('tbl_cryptocurrencies', 'tbl_order.crypto_id', '=', 'tbl_cryptocurrencies.id')
+                ->join('tbl_users', 'tbl_order.user_id', '=', 'tbl_users.id')
+                ->join('tbl_user_payment_type', 'tbl_users.id', '=', 'tbl_user_payment_type.user_id')
+                ->join('tbl_payment_type', 'tbl_user_payment_type.payment_type_id', '=', 'tbl_payment_type.id')
+                ->join('tbl_type', 'tbl_order.type_id', '=', 'tbl_type.id')
+                ->join('tbl_status', 'tbl_order.status_id', '=', 'tbl_status.id')
+                ->where('tbl_users.username', $username)
+                ->orderBy('tbl_order.crypto_id', 'DESC')
+                ->get();
     }
 }

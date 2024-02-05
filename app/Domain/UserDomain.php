@@ -9,21 +9,21 @@ class UserDomain
         $username   = '';
         $email  = '';
         $role   = '';
-        $wallet = [];
+        $wallets = [];
         foreach ($userDetail as $rowUser) {
-            if (empty($username) && empty($email) && empty($role) && empty($wallet)) {
+            if (empty($username) && empty($email) && empty($role) && empty($wallets)) {
                 $username   = $rowUser->username;
                 $email  = $rowUser->email;
                 $role   = $rowUser->role;
-                array_push($wallet, [
+                array_push($wallets, [
                     'symbol'    => $rowUser->symbol,
-                    'balance'   => $rowUser->balance,
+                    'balance'   => number_format($rowUser->balance, 8).' '.$rowUser->symbol,
                     'address'   => $rowUser->address,
                 ]);
             }else {
-                array_push($wallet, [
+                array_push($wallets, [
                     'symbol'    => $rowUser->symbol,
-                    'balance'   => $rowUser->balance,
+                    'balance'   => number_format($rowUser->balance, 8).' '.$rowUser->symbol,
                     'address'   => $rowUser->address,
                 ]);
             }
@@ -31,9 +31,9 @@ class UserDomain
 
         return [
             'username'  => $username,
-            'email' => $email,
-            'role'  => $role,
-            'wallet'    => $wallet,
+            'email'     => $email,
+            'role'      => $role,
+            'wallet'    => $wallets,
         ];
     }
 }

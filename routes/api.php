@@ -26,15 +26,9 @@ Route::group(['prefix' => 'users'], function () {
 });
 
 Route::group(['prefix' => 'trade'], function () {
-    Route::group(['prefix' => 'get-order-list'], function (){
-        Route::get('{crypto}', 'Api\OrderController@getOrderListByCrypto');
-        Route::get('{username}', 'Api\OrderController@getOrderListByUser');
-    });
-    // BUY
-    // Route::post('', '');
-
-    // SELL
-    // Route::get('', '');
+    Route::get('get-order-by-crypto/{crypto}', 'Api\OrderController@getOrderListByCrypto');
+    Route::get('get-order-by-user/{username}', 'Api\OrderController@getOrderListByUser');
+    // create
     // Route::post('', '');
 });
 

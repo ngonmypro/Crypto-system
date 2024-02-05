@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
             // CreateExchangeRate::class,
             // CreateWallet::class,
             // CreateUserPaymentType::class,
-            CreateOrder::class,
+            // CreateOrder::class,
 
             // CreateTransaction::class,
             // CreatePayment::class,
